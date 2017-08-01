@@ -1,9 +1,10 @@
-apply plugin: 'com.android.library'
+apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 24
     buildToolsVersion "25.0.2"
     defaultConfig {
+        applicationId "com.dabaselibrary.dabaselibrary"
         minSdkVersion 19
         targetSdkVersion 24
         versionCode 1
