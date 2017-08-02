@@ -23,12 +23,10 @@ import okhttp3.RequestBody;
 
 public class DAOpenController implements com.dabaselibrary.dabaselibrary.DAControllerInterface.DAOpenControllerInterface {
     private DABaseControllerInterface daBaseControllerInterface;
-    private DAOpenUtils daOpenUtils;
     private Context context;
     public DAOpenController(Context context){
         daBaseControllerInterface= DAControllerFactory.getBaseController(context);
         this.context=context;
-        this.daOpenUtils=DAOpenUtils.getObject(context);
     }
     //弹土司
     @Override
@@ -163,7 +161,8 @@ public class DAOpenController implements com.dabaselibrary.dabaselibrary.DAContr
     }
     //返回Utils
     @Override
-    public DAOpenUtils getUtils() {return daOpenUtils;}
+    public DAOpenUtils getUtils() {
+        return DAOpenUtils.getObject(context);}
     //-----------------------------------------------------------------------
 
     //子线程
