@@ -3,6 +3,7 @@ package com.dabaselibrary.dabaselibrary.DAControllerInterface;
 import com.dabaselibrary.dabaselibrary.DAInterface.DAGetResultObject;
 import com.dabaselibrary.dabaselibrary.DAInterface.DAHttpDownRespon;
 import com.dabaselibrary.dabaselibrary.DAInterface.DAHttpUpRespon;
+import com.dabaselibrary.dabaselibrary.DAOpenUtils.DAOpenUtils;
 
 import java.io.File;
 import java.net.CookieStore;
@@ -138,6 +139,8 @@ public interface DAOpenControllerInterface {
      *      图片的回调 返回Bitmap
      */
     void getBitmap(String url, DAGetResultObject daGetResultObject);
+    //返回总Utils
+    DAOpenUtils getUtils();
     //------------------------------------------------------------------
     /**
      *      运行子线程

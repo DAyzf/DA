@@ -7,7 +7,7 @@ import com.dabaselibrary.dabaselibrary.DAInterface.DAGetResultObject;
 import com.dabaselibrary.dabaselibrary.DAFactory.DAControllerFactory;
 import com.dabaselibrary.dabaselibrary.DAInterface.DAHttpDownRespon;
 import com.dabaselibrary.dabaselibrary.DAInterface.DAHttpUpRespon;
-import com.dabaselibrary.dabaselibrary.DAUtils.ThreadUtils;
+import com.dabaselibrary.dabaselibrary.DAOpenUtils.DAOpenUtils;
 
 import java.io.File;
 import java.net.CookieStore;
@@ -23,10 +23,12 @@ import okhttp3.RequestBody;
 
 public class DAOpenController implements com.dabaselibrary.dabaselibrary.DAControllerInterface.DAOpenControllerInterface {
     private DABaseControllerInterface daBaseControllerInterface;
+    private DAOpenUtils daOpenUtils;
     private Context context;
     public DAOpenController(Context context){
         daBaseControllerInterface= DAControllerFactory.getBaseController(context);
         this.context=context;
+        this.daOpenUtils=DAOpenUtils.getObject(context);
     }
     //弹土司
     @Override
@@ -159,6 +161,9 @@ public class DAOpenController implements com.dabaselibrary.dabaselibrary.DAContr
     public void getBitmap(String url, DAGetResultObject daGetResultObject){
         daBaseControllerInterface.getBitmap(url, daGetResultObject);
     }
+    //返回Utils
+    @Override
+    public DAOpenUtils getUtils() {return daOpenUtils;}
     //-----------------------------------------------------------------------
 
     //子线程
@@ -177,4 +182,5 @@ public class DAOpenController implements com.dabaselibrary.dabaselibrary.DAContr
     public String[] getTelephony() throws NoSuchAlgorithmException {
         return daBaseControllerInterface.getTelephony();
     }
+
 }
