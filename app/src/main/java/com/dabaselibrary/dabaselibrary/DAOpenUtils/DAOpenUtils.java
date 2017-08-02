@@ -12,7 +12,6 @@ public class DAOpenUtils {
     private DADownFileUtils daDownFileUtils;
     private DADialogs daDialogs;
     private DADensityUtil daDensityUtil;
-    private DAWifiHotUtils daWifiHotUtils;
     private static DAOpenUtils daOpenUtils;
     public static DAOpenUtils getObject(Context context){
         if(daOpenUtils==null){
@@ -25,12 +24,10 @@ public class DAOpenUtils {
         daDownFileUtils=new DADownFileUtils(context);
         daDialogs=new DADialogs();
         daDensityUtil=new DADensityUtil(context);
-        daWifiHotUtils=new DAWifiHotUtils(context);
     }
 
     public DASpTool getDASpTool(){return daSpTool;}
     public DADownFileUtils getDaDownFileUtils(){return daDownFileUtils;}
     public DADialogs getDaDialogs(){return daDialogs;}
     public DADensityUtil getDaDensityUtil(){return daDensityUtil;}
-    public DAWifiHotUtils daWifiHotUtils(){return daWifiHotUtils;}
 }
