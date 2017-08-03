@@ -22,5 +22,4 @@
             <enum name="invisible" value="1"/>
         </attr>
     </declare-styleable>
-
 </resources>
