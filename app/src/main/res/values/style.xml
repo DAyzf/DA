@@ -4,4 +4,5 @@
         <item name="android:windowEnterAnimation">@anim/dialog_push_in</item>
         <item name="android:windowExitAnimation">@anim/dialog_push_out</item>
     </style>
+
 </resources>
