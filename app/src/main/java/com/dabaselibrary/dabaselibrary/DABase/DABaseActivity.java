@@ -16,6 +16,7 @@ import android.support.v4.content.ContextCompat;
 
 import com.dabaselibrary.dabaselibrary.DAInterface.DAPermissionButtonCallback;
 import com.dabaselibrary.dabaselibrary.DAInterface.DAPermissionCallback;
+import com.dabaselibrary.dabaselibrary.DAOpenUtils.DAAndroidWorkaround;
 
 /**
  * Created by DA on 2017/03/13.
@@ -55,7 +56,11 @@ public abstract class DABaseActivity extends FragmentActivity {
     /**
      *  初始化数据,比如联网获取数据可以放在这里,OnCreate方法调用
      */
-    protected void initCreateData() {}
+    protected void initCreateData() {
+        if (DAAndroidWorkaround.checkDeviceHasNavigationBar(this)) {
+            DAAndroidWorkaround.assistActivity(findViewById(android.R.id.content));
+        }
+    }
 
     @Override
     protected void onStart() {
