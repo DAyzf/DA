@@ -48,7 +48,11 @@ public abstract class DABaseActivity extends FragmentActivity {
     /**
      *  获取控件方法，所以控件的获取可以放在这里
      */
-    protected void getGrabbingView(){}
+    protected void getGrabbingView(){
+        if (DAAndroidWorkaround.checkDeviceHasNavigationBar(this)) {
+            DAAndroidWorkaround.assistActivity(findViewById(android.R.id.content));
+        }
+    }
     /**
      *  控件点击事件可以放在这里,OnCreate方法调用
      */
@@ -56,11 +60,7 @@ public abstract class DABaseActivity extends FragmentActivity {
     /**
      *  初始化数据,比如联网获取数据可以放在这里,OnCreate方法调用
      */
-    protected void initCreateData() {
-        if (DAAndroidWorkaround.checkDeviceHasNavigationBar(this)) {
-            DAAndroidWorkaround.assistActivity(findViewById(android.R.id.content));
-        }
-    }
+    protected void initCreateData() {}
 
     @Override
     protected void onStart() {
