@@ -48,11 +48,7 @@ public abstract class DABaseActivity extends FragmentActivity {
     /**
      *  获取控件方法，所以控件的获取可以放在这里
      */
-    protected void getGrabbingView(){
-        if (DAAndroidWorkaround.checkDeviceHasNavigationBar(this)) {
-            DAAndroidWorkaround.assistActivity(findViewById(android.R.id.content));
-        }
-    }
+    protected void getGrabbingView(){}
     /**
      *  控件点击事件可以放在这里,OnCreate方法调用
      */
@@ -313,5 +309,11 @@ public abstract class DABaseActivity extends FragmentActivity {
                     }
                 });
         builder.show();
+    }
+    //解决华为虚拟按钮问题，但是虚拟键盘弹出时界面也会改变，目前没有好方法
+    protected void Workaround(){
+        if (DAAndroidWorkaround.checkDeviceHasNavigationBar(this)){
+            DAAndroidWorkaround.assistActivity(findViewById(android.R.id.content));
+        }
     }
 }

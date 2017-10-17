@@ -34,7 +34,6 @@ public class DAAndroidWorkaround {
     private void possiblyResizeChildOfContent() {
         int usableHeightNow = computeUsableHeight();
         if (usableHeightNow != usableHeightPrevious) {
-
             frameLayoutParams.height = usableHeightNow;
             mChildOfContent.requestLayout();
             usableHeightPrevious = usableHeightNow;
