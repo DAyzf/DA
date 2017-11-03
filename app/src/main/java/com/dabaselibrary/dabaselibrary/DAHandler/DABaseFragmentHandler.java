@@ -19,6 +19,25 @@ public abstract class DABaseFragmentHandler extends Handler{
     public void handlerMsg(int what,Object object){
         this.sendMessage(this.obtainMessage(what,object));
     }
+    //多条what
+    public void handlerMoreMsg(int... what){
+        for (int i:what) {
+            this.handlerMsg(i);
+        }
+    }
+    //多条带object的数据
+    public void handlerMsg(Object[] objects,int... what){
+        for (int i=0;i<objects.length;i++) {
+            if(i<what.length) {
+                handlerMsg(what[i], objects[i]);
+            }
+        }
+        if(what.length>objects.length){
+            for (int j=objects.length;j<what.length;j++){
+                handlerMsg(what[j]);
+            }
+        }
+    }
     @Override
     public void handleMessage(Message msg) {
         Fragment fragment = fragmentWeakReference.get();
