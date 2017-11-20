@@ -3,6 +3,7 @@ package com.dabaselibrary.dabaselibrary.DAUtils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.dabaselibrary.dabaselibrary.DACookie.PersistentCookieStore;
@@ -42,6 +43,7 @@ import okio.Source;
 
 /**
  * Created by DA on 2016/12/13.
+ * OkHttp工具类
  */
 
 public class OkHttpUtils {
@@ -97,12 +99,12 @@ public class OkHttpUtils {
         Request request=new Request.Builder().url(url).build();
         okHttpClient.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 Log.e("aa",e.toString());
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 byte[] bytes = response.body().bytes();
                 Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                 daGetResultObject.getResult(bmp);
@@ -131,11 +133,11 @@ public class OkHttpUtils {
                 .build();
         defaultHttpClient.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 System.out.println("failure");
             }
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 int len;
                 byte[] buf = new byte[2048];
                 InputStream inputStream = response.body().byteStream();
@@ -167,11 +169,11 @@ public class OkHttpUtils {
                 .build();
         defaultHttpClient.newCall(request).enqueue(new Callback() {
             @Override
-            public void onFailure(Call call, IOException e) {
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 System.out.println("failure");
             }
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
 
             }
         });
@@ -184,7 +186,7 @@ public class OkHttpUtils {
             this.daRespon=daRespon;
         }
         @Override
-        public Response intercept(Chain chain) throws IOException {
+        public Response intercept(@NonNull Chain chain) throws IOException {
             Response originalResponse = chain.proceed(chain.request());
             return originalResponse.newBuilder().body(
                     new ProgressResponseBody(originalResponse.body(), daRespon))
@@ -197,7 +199,7 @@ public class OkHttpUtils {
             this.daRespon=daRespon;
         }
         @Override
-        public Response intercept(Chain chain) throws IOException {
+        public Response intercept(@NonNull Chain chain) throws IOException {
             Request originalResponse = chain.request();
             Request signedRequest =
                     originalResponse.newBuilder().put(new ProgressRequestBody(originalResponse.body(), daRespon)).build();
@@ -229,7 +231,7 @@ public class OkHttpUtils {
         private Source source(Source source) {
             return new ForwardingSource(source) {
                 long totalBytesRead = 0L;
-                @Override public long read(Buffer sink, long byteCount) throws IOException {
+                @Override public long read(@NonNull Buffer sink, long byteCount) throws IOException {
                     long bytesRead = super.read(sink, byteCount);
                     totalBytesRead += bytesRead != -1 ? bytesRead : 0;
                     daRespon.onResponseProgress(totalBytesRead, responseBody.contentLength(), bytesRead == -1);
@@ -259,7 +261,7 @@ public class OkHttpUtils {
             return requestBody.contentLength();
         }
         @Override
-        public void writeTo(BufferedSink sink) throws IOException {
+        public void writeTo(@NonNull BufferedSink sink) throws IOException {
             if (bufferedSink == null) {
                 bufferedSink = Okio.buffer(sink(sink));
             }
@@ -271,7 +273,7 @@ public class OkHttpUtils {
                 long bytesWritten = 0L;
                 long contentLength = 0L;
                 @Override
-                public void write(Buffer source, long byteCount) throws IOException {
+                public void write(@NonNull Buffer source, long byteCount) throws IOException {
                     super.write(source, byteCount);
                     if (contentLength == 0) {
                         contentLength = contentLength();
