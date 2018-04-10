@@ -1,6 +1,6 @@
 # DA
  
- compile 'com.github.DAyzf:DA:1.43'
+ compile 'com.github.DAyzf:DA:1.48'
  
  allprojects {
     repositories {
