@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.dabaselibrary.dabaselibrary.DAHandler.DADialogFragmentHandler;
 import com.dabaselibrary.dabaselibrary.R;
 
 /**
@@ -19,6 +20,7 @@ public abstract class DABaseDialogFragment extends DialogFragment {
     //窗口
     private WindowManager.LayoutParams attributes;
     private Window window;
+    protected DADialogFragmentHandler daHandler;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -29,6 +31,7 @@ public abstract class DABaseDialogFragment extends DialogFragment {
             attributes = window.getAttributes();
             setAnimation(attributes);
         }
+        daHandler=new DADialogFragmentHandler(this);
         getViewObject(view);
         return view;
     }
@@ -64,4 +67,11 @@ public abstract class DABaseDialogFragment extends DialogFragment {
     protected void initEvent(){}
     //加载数据
     protected void initData(){}
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        daHandler=null;
+    }
+    //Handler
+    public void handlerMessage(int what, Object obj){}
 }

@@ -14,10 +14,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.dabaselibrary.dabaselibrary.DAHandler.DABaseFragmentHandler;
 import com.dabaselibrary.dabaselibrary.DAInterface.DAPermissionButtonCallback;
 import com.dabaselibrary.dabaselibrary.DAInterface.DAPermissionCallback;
 
@@ -30,10 +32,12 @@ public abstract class DABaseFragment extends Fragment {
     private DAPermissionCallback daPermissionCallback;
     protected int WRITE_SETTINGS=9;
     protected int SYSTEM_ALERT_WINDOW=10;
+    protected DABaseFragmentHandler daHandler;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         bundle=new Bundle();
+        daHandler=new DABaseFragmentHandler(this);
         View view= initView();
         getViewObject(view);
         return view;
@@ -301,4 +305,11 @@ public abstract class DABaseFragment extends Fragment {
                 });
         builder.show();
     }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        daHandler=null;
+    }
+    //Handler
+    public void handlerMessage(int what, Object obj){}
 }

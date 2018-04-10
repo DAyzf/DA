@@ -1,6 +1,7 @@
 package com.dabaselibrary.dabaselibrary.DABase;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,27 +12,28 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 
+import com.dabaselibrary.dabaselibrary.DAHandler.DABaseActivityHandler;
 import com.dabaselibrary.dabaselibrary.DAInterface.DAPermissionButtonCallback;
 import com.dabaselibrary.dabaselibrary.DAInterface.DAPermissionCallback;
 import com.dabaselibrary.dabaselibrary.DAOpenUtils.DAAndroidWorkaround;
 
 /**
- * Created by DA on 2017/03/13.
+ * Created by DA on 2018/4/10.
  */
-
-public abstract class DABaseActivity extends FragmentActivity {
+public abstract class DABaseActivity extends Activity {
     protected Bundle bundle;
     private DAPermissionCallback permissionCallback;
     protected int WRITE_SETTINGS=9;
     protected int SYSTEM_ALERT_WINDOW=10;
+    protected DABaseActivityHandler daHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         init();
         bundle=new Bundle();
+        daHandler=new DABaseActivityHandler(this);
         initView();
         getGrabbingView();
         initCreateData();
@@ -316,4 +318,11 @@ public abstract class DABaseActivity extends FragmentActivity {
             DAAndroidWorkaround.assistActivity(findViewById(android.R.id.content));
         }
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        daHandler=null;
+    }
+    //Handler
+    public void handlerMessage(int what, Object obj){}
 }

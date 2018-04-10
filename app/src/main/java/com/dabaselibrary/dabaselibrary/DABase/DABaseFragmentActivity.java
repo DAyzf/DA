@@ -11,30 +11,30 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 
-import com.dabaselibrary.dabaselibrary.DAHandler.DABaseAppActivityHandler;
+import com.dabaselibrary.dabaselibrary.DAHandler.DABaseFragmentActivityHandler;
 import com.dabaselibrary.dabaselibrary.DAInterface.DAPermissionButtonCallback;
 import com.dabaselibrary.dabaselibrary.DAInterface.DAPermissionCallback;
 import com.dabaselibrary.dabaselibrary.DAOpenUtils.DAAndroidWorkaround;
 
 /**
- * Created by DA on 2017/03/19.
+ * Created by DA on 2017/03/13.
  */
 
-public abstract class DABaseAppActivity extends AppCompatActivity {
+public abstract class DABaseFragmentActivity extends FragmentActivity {
     protected Bundle bundle;
     private DAPermissionCallback permissionCallback;
     protected int WRITE_SETTINGS=9;
     protected int SYSTEM_ALERT_WINDOW=10;
-    protected DABaseAppActivityHandler daHandler;
+    protected DABaseFragmentActivityHandler daHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         init();
         bundle=new Bundle();
-        daHandler=new DABaseAppActivityHandler(this);
+        daHandler=new DABaseFragmentActivityHandler(this);
         initView();
         getGrabbingView();
         initCreateData();

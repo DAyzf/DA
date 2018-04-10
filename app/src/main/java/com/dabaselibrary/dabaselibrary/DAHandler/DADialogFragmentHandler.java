@@ -4,6 +4,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.DialogFragment;
 
+import com.dabaselibrary.dabaselibrary.DABase.DABaseDialogFragment;
+
 import java.lang.ref.WeakReference;
 
 
@@ -12,7 +14,7 @@ import java.lang.ref.WeakReference;
  * Created by DA on 2017/08/03.
  */
 
-public abstract class DADialogFragmentHandler extends Handler{
+public class DADialogFragmentHandler extends Handler{
     private final WeakReference<DialogFragment> dialogFragmentWeakReference;
     public DADialogFragmentHandler(DialogFragment dialogFragment) {
         dialogFragmentWeakReference = new WeakReference<>(dialogFragment);
@@ -47,5 +49,9 @@ public abstract class DADialogFragmentHandler extends Handler{
             handleMessage(dialogFragment,msg);
         }
     }
-    protected abstract void handleMessage(DialogFragment dialogFragment,Message message);
+    protected void handleMessage(DialogFragment dialogFragment,Message message){
+        DABaseDialogFragment daBaseDialogFragment=(DABaseDialogFragment)dialogFragment;
+        if(daBaseDialogFragment==null){return;}
+        daBaseDialogFragment.handlerMessage(message.what,message.obj);
+    }
 }

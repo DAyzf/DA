@@ -1,26 +1,22 @@
 package com.dabaselibrary.dabaselibrary.DAHandler;
 
+import android.app.Activity;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
-
-import com.dabaselibrary.dabaselibrary.DABase.DABaseFragment;
 
 import java.lang.ref.WeakReference;
 
 /**
- * Created by DA on 2017/08/03.
+ * Created by DA on 2018/4/10.
  */
-
-public class DABaseFragmentHandler extends Handler{
-    private final WeakReference<Fragment> fragmentWeakReference;
-    public DABaseFragmentHandler(Fragment fragment) {
-        fragmentWeakReference = new WeakReference<>(fragment);
+public class DAHandler extends Handler {
+    private final WeakReference<Activity> activityWeakReference;
+    public DAHandler(Activity activity) {
+        activityWeakReference = new WeakReference<>(activity);
     }
     public void handlerMsg(int what){this.sendEmptyMessage(what);}
     public void handlerMsg(int what,Object object){
-        this.sendMessage(this.obtainMessage(what,object));
-    }
+        this.sendMessage(this.obtainMessage(what,object));}
     //多条what
     public void handlerMoreMsg(int... what){
         for (int i:what) {
@@ -42,14 +38,10 @@ public class DABaseFragmentHandler extends Handler{
     }
     @Override
     public void handleMessage(Message msg) {
-        Fragment fragment = fragmentWeakReference.get();
-        if (fragment != null) {
-            handleMessage(fragment,msg);
+        Activity activity = activityWeakReference.get();
+        if (activity != null) {
+            handleMessage(activity,msg);
         }
     }
-    protected void handleMessage(Fragment fragment,Message message){
-        DABaseFragment baseFragment=(DABaseFragment)fragment;
-        if(baseFragment==null){return;}
-        baseFragment.handlerMessage(message.what,message.obj);
-    }
+    protected void handleMessage(Activity activity,Message message){};
 }
